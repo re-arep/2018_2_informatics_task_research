@@ -1,0 +1,74 @@
+﻿"//" This mean is comment
+
+$ sudo apt-get install -y build-essential libmp3-dev golang git tree // Go 언어 설치 및 C언어 컴파일러 설치
+$ sudo apt-get install -y software-properties-common // Geth 설치
+$ sudo add-apt-repository -y ppa:ethereum/ethereum
+$ sudo apt-get update
+$ sudo apt-get install -y ethereum
+
+jinseok@ubuntu:~$ geth version // Geth 버전 확인
+Geth
+Version: 1.8.17-stable
+Git Commit: 8bbe72075e4e16442c4e28d999edee12e294329e
+Architecture: amd64
+Protocol Versions: [63 62]
+Network Id: 1
+Go Version: go1.10.1
+Operating System: linux
+GOPATH=
+GOROOT=/usr/lib/go-1.10
+
+jinseok@ubuntu:~$ geth // Geth 실행
+INFO [10-30|02:40:58.177] Maximum peer count ETH=25 LES=0 total=25
+INFO [10-30|02:40:58.177] Starting peer-to-peer node               instance=Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+INFO [10-30|02:40:58.177] Allocated cache and file handles         database=/home/jinseok/.ethereum/geth/chaindata cache=768 handles=512
+INFO [10-30|02:40:59.840] Initialised chain configuration          config="{ChainID: 1 Homestead: 1150000 DAO: 1920000 DAOSupport: true EIP150: 2463000 EIP155: 2675000 EIP158: 2675000 Byzantium: 4370000 Constantinople: <nil> Engine: ethash}"
+INFO [10-30|02:40:59.841] Disk storage enabled for ethash caches   dir=/home/jinseok/.ethereum/geth/ethash count=3
+INFO [10-30|02:40:59.841] Disk storage enabled for ethash DAGs     dir=/home/jinseok/.ethash               count=2
+INFO [10-30|02:40:59.841] Initialising Ethereum protocol           versions="[63 62]" network=1
+INFO [10-30|02:40:59.841] Loaded most recent local header          number=49152 hash=884e99…14d051 td=47076175530671975 age=3y3mo1w
+INFO [10-30|02:40:59.841] Loaded most recent local full block      number=0     hash=d4e567…cb8fa3 td=17179869184       age=49y6mo2w
+INFO [10-30|02:40:59.841] Loaded most recent local fast block      number=47186 hash=431593…6abd01 td=44200165181124230 age=3y3mo1w
+INFO [10-30|02:40:59.842] Loaded local transaction journal         transactions=0 dropped=0
+INFO [10-30|02:40:59.842] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [10-30|02:40:59.842] Upgrading chain index                    type=bloombits percentage=0
+INFO [10-30|02:40:59.842] Starting P2P networking 
+INFO [10-30|02:41:01.958] UDP listener up                          self=enode://b2307cea77964ec4704c9c00bfc3d4f25d24f9bb05c08a361c267f156445072d0f8661240aad30deeff358e10e1df9f634465567b0221eb8f2fc1fe68fc23cf1@[::]:30303
+INFO [10-30|02:41:01.961] IPC endpoint opened                      url=/home/jinseok/.ethereum/geth.ipc
+INFO [10-30|02:41:01.964] RLPx listener up                         self=enode://b2307cea77964ec4704c9c00bfc3d4f25d24f9bb05c08a361c267f156445072d0f8661240aad30deeff358e10e1df9f634465567b0221eb8f2fc1fe68fc23cf1@[::]:30303
+INFO [10-30|02:41:02.515] Finished upgrading chain index           type=bloombits
+^CINFO [10-30|02:41:06.000] Got interrupt, shutting down... 
+INFO [10-30|02:41:06.000] IPC endpoint closed                      endpoint=/home/jinseok/.ethereum/geth.ipc
+INFO [10-30|02:41:06.000] Blockchain manager stopped 
+INFO [10-30|02:41:06.000] Stopping Ethereum protocol 
+INFO [10-30|02:41:06.000] Ethereum protocol stopped 
+INFO [10-30|02:41:06.000] Transaction pool stopped 
+INFO [10-30|02:41:06.001] Database closed                          database=/home/jinseok/.ethereum/geth/chaindata
+
+Ctrl+C로 Geth 종료
+
+jinseok@ubuntu:~$ geth --testnet // testnet(localnet) 실행
+INFO [10-30|02:46:07.559] Maximum peer count ETH=25 LES=0 total=25
+INFO [10-30|02:46:07.560] Starting peer-to-peer node               instance=Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+INFO [10-30|02:46:07.560] Allocated cache and file handles         database=/home/jinseok/.ethereum/testnet/geth/chaindata cache=768 handles=512
+INFO [10-30|02:46:07.566] Writing custom genesis block 
+INFO [10-30|02:46:07.581] Persisted trie from memory database      nodes=355 size=51.89kB time=3.940243ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [10-30|02:46:07.582] Initialised chain configuration          config="{ChainID: 3 Homestead: 0 DAO: <nil> DAOSupport: true EIP150: 0 EIP155: 10 EIP158: 10 Byzantium: 1700000 Constantinople: 4230000 Engine: ethash}"
+INFO [10-30|02:46:07.582] Disk storage enabled for ethash caches   dir=/home/jinseok/.ethereum/testnet/geth/ethash count=3
+INFO [10-30|02:46:07.582] Disk storage enabled for ethash DAGs     dir=/home/jinseok/.ethash                       count=2
+INFO [10-30|02:46:07.582] Initialising Ethereum protocol           versions="[63 62]" network=3
+INFO [10-30|02:46:07.582] Loaded most recent local header          number=0 hash=419410…ca4a2d td=1048576 age=49y6mo2w
+INFO [10-30|02:46:07.582] Loaded most recent local full block      number=0 hash=419410…ca4a2d td=1048576 age=49y6mo2w
+INFO [10-30|02:46:07.582] Loaded most recent local fast block      number=0 hash=419410…ca4a2d td=1048576 age=49y6mo2w
+INFO [10-30|02:46:07.582] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [10-30|02:46:07.583] Starting P2P networking 
+INFO [10-30|02:46:09.688] UDP listener up                          self=enode://72a7b5eec62e03accc982f74f3b3faf0aa8f921bbcbad84b659c242c83c8296c8e97dc587e664c6409f7439d5ed99d7cdc6142e9f46fd59126b2579a37a922be@[::]:30303
+INFO [10-30|02:46:09.690] RLPx listener up                         self=enode://72a7b5eec62e03accc982f74f3b3faf0aa8f921bbcbad84b659c242c83c8296c8e97dc587e664c6409f7439d5ed99d7cdc6142e9f46fd59126b2579a37a922be@[::]:30303
+INFO [10-30|02:46:09.691] IPC endpoint opened                      url=/home/jinseok/.ethereum/testnet/geth.ipc
+^CINFO [10-30|02:46:17.756] Got interrupt, shutting down... 
+INFO [10-30|02:46:17.756] IPC endpoint closed                      endpoint=/home/jinseok/.ethereum/testnet/geth.ipc
+INFO [10-30|02:46:17.756] Blockchain manager stopped 
+INFO [10-30|02:46:17.757] Stopping Ethereum protocol 
+INFO [10-30|02:46:17.757] Ethereum protocol stopped 
+INFO [10-30|02:46:17.757] Transaction pool stopped 
+INFO [10-30|02:46:17.757] Database closed                          database=/home/jinseok/.ethereum/testnet/geth/chaindata
