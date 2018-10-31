@@ -91,7 +91,7 @@ at block: 0 (Wed, 31 Dec 1969 16:00:00 PST)
 > miner.setEtherbase(eth.accounts[1]) // eherbase를 1번 계정으로 전환
 true
 > miner.start(1) // 스레드를 한개 사용하여 채굴 시작
-true
+null
 
 jinseok@ubuntu:~$ tail -100f ~/data_testnet/geth.log // 채굴 log 정보 확인
 INFO [10-30|03:43:06.168] Maximum peer count                       ETH=0 LES=0 total=0
