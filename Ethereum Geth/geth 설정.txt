@@ -1,0 +1,75 @@
+﻿jinseok@ubuntu:~$ which geth // geth 설치 경로 확인
+/usr/bin/geth
+jinseok@ubuntu:~$ mkdir ~/data_testnet // 데이터 디렉터리 생성
+jinseok@ubuntu:~$ cd ~/data_testnet
+jinseok@ubuntu:~/data_testnet$ pwd // 데이터 디렉터리 경로 확인
+/home/jinseok/data_testnet
+jinseok@ubuntu:~$ cd ~/data_testnet/
+jinseok@ubuntu:~/data_testnet$ cat>genesis.json // 'cat>'을 이용하여 genesis.json 파일 생성 및 수정
+{
+  "config": {
+        "chainId": 4649, // Github에 있는 genesis.json 파일 내용을 가져와서 'chainId'만 바꿈. 0~3은 이미 지정된 id이므로 이 외의 정수를 사용하면 됨.
+        "homesteadBlock": 0,
+        "eip155Block": 0,
+        "eip158Block": 0
+    },
+  "alloc"      : {},
+  "coinbase"   : "0x0000000000000000000000000000000000000000",
+  "difficulty" : "0x20000",
+  "extraData"  : "",
+  "gasLimit"   : "0x2fefd8",
+  "nonce"      : "0x0000000000000042",
+  "mixhash"    : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "timestamp"  : "0x00"
+}
+^C // Ctrl+C로 파일 저장 및 파일 수정 종료
+jinseok@ubuntu:~/data_testnet$ cat genesis.json // 'cat'명령어로 genesis.json 파일 
+{
+  "config": {
+        "chainId": 4649,
+        "homesteadBlock": 0,
+        "eip155Block": 0,
+        "eip158Block": 0
+    },
+  "alloc"      : {},
+  "coinbase"   : "0x0000000000000000000000000000000000000000",
+  "difficulty" : "0x20000",
+  "extraData"  : "",
+  "gasLimit"   : "0x2fefd8",
+  "nonce"      : "0x0000000000000042",
+  "mixhash"    : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "timestamp"  : "0x00"
+}
+jinseok@ubuntu:~/data_testnet$ geth --datadir /home/jinseok/data_testnet init /home/jinseok/data_testnet/genesis.json // 데이터 디렉터리와 genesis 파일에 맞추어서 geth를 초기화
+INFO [10-30|03:37:46.013] Maximum peer count                       ETH=25 LES=0 total=25
+INFO [10-30|03:37:46.015] Allocated cache and file handles         database=/home/jinseok/data_testnet/geth/chaindata cache=16 handles=16
+INFO [10-30|03:37:46.031] Writing custom genesis block 
+INFO [10-30|03:37:46.031] Persisted trie from memory database      nodes=0 size=0.00B time=2.726µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [10-30|03:37:46.031] Successfully wrote genesis state         database=chaindata                                 hash=5e1fc7…d790e0
+INFO [10-30|03:37:46.032] Allocated cache and file handles         database=/home/jinseok/data_testnet/geth/lightchaindata cache=16 handles=16
+INFO [10-30|03:37:46.035] Writing custom genesis block 
+INFO [10-30|03:37:46.037] Persisted trie from memory database      nodes=0 size=0.00B time=2.928µs gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [10-30|03:37:46.037] Successfully wrote genesis state         database=lightchaindata                                 hash=5e1fc7…d790e0
+
+jinseok@ubuntu:~/data_testnet$ cd
+jinseok@ubuntu:~$ tree data_testnet // 디렉터리 data_testnet의 구조 확인
+data_testnet
+├── genesis.json
+├── geth
+│   ├── chaindata
+│   │   ├── 000001.log
+│   │   ├── CURRENT
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000000
+│   └── lightchaindata
+│       ├── 000001.log
+│       ├── CURRENT
+│       ├── LOCK
+│       ├── LOG
+│       └── MANIFEST-000000
+└── keystore
+
+4 directories, 11 files

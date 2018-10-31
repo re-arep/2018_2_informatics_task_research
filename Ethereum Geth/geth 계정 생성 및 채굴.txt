@@ -1,0 +1,249 @@
+﻿jinseok@ubuntu:~$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /home/jinseok/data_testnet console 2>> /home/jinseok/data_testnet/geth.log // localhost에서 networkid를 4649로 노드 검색이 불가능하게 하고 다른 노드는 참여불가능하게 설정하고 로그 정보는 /home/jinseok/data_testnet/geth.log에 저장하도록 설정하고 geth 실행
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+ modules: admin:1.0 debug:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> 
+
+
+> personal.newAccount("pass0") // "pass0"라는 패스워드로 계정 생성
+"0xc9da50c10e4f442aadf42c26864abec6d5cdd344"
+> eth.accounts
+["0xc9da50c10e4f442aadf42c26864abec6d5cdd344"]
+> personal.newAccount("pass1")
+"0xa120bf28fc9384a0a27d5adf77d35c611e5de2cb"
+> eth.accounts // 생성된 계정 표시
+["0xc9da50c10e4f442aadf42c26864abec6d5cdd344", "0xa120bf28fc9384a0a27d5adf77d35c611e5de2cb"]
+> eth.accounts[0] // 계정을 index 형식으로 표시
+"0xc9da50c10e4f442aadf42c26864abec6d5cdd344“
+> eth.accounts[1]
+"0xa120bf28fc9384a0a27d5adf77d35c611e5de2cb“
+
+
+jinseok@ubuntu:~$ geth --datadir /home/jinseok/data_testnet account new // geth 환경이 아닌 쉘환경에서 계정 추가
+INFO [10-30|04:08:48.114] Maximum peer count                       ETH=25 LES=0 total=25
+Your new account is locked with a password. Please give a password. Do not forget this password.
+Passphrase: 
+Repeat passphrase: 
+Address: {b6503f84136a5534f3e75d56fd6c7890c3523604} 
+
+jinseok@ubuntu:~$ geth --datadir /home/jinseok/data_testnet account list // geth 환경이 아닌 쉘환경에서 계정 리스트 확인
+INFO [10-30|04:09:46.539] Maximum peer count                       ETH=25 LES=0 total=25
+Account #0: {c9da50c10e4f442aadf42c26864abec6d5cdd344} keystore:///home/jinseok/data_testnet/keystore/UTC--2018-10-30T11-00-05.949657119Z--c9da50c10e4f442aadf42c26864abec6d5cdd344
+Account #1: {a120bf28fc9384a0a27d5adf77d35c611e5de2cb} keystore:///home/jinseok/data_testnet/keystore/UTC--2018-10-30T11-00-56.308431815Z--a120bf28fc9384a0a27d5adf77d35c611e5de2cb
+Account #2: {b6503f84136a5534f3e75d56fd6c7890c3523604} keystore:///home/jinseok/data_testnet/keystore/UTC--2018-10-30T11-09-00.434477526Z--b6503f84136a5534f3e75d56fd6c7890c3523604 
+
+
+jinseok@ubuntu:~$ tree data_testnet
+data_testnet
+├── genesis.json
+├── geth
+│   ├── LOCK
+│   ├── chaindata
+│   │   ├── 000002.ldb
+│   │   ├── 000005.ldb
+│   │   ├── 000006.log
+│   │   ├── CURRENT
+│   │   ├── CURRENT.bak
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000007
+│   ├── lightchaindata
+│   │   ├── 000001.log
+│   │   ├── CURRENT
+│   │   ├── LOCK
+│   │   ├── LOG
+│   │   └── MANIFEST-000000
+│   ├── nodekey
+│   └── transactions.rlp
+├── geth.log
+├── history
+└── keystore
+    ├── UTC--2018-10-30T11-00-05.949657119Z--c9da50c10e4f442aadf42c26864abec6d5cdd344
+    ├── UTC--2018-10-30T11-00-56.308431815Z--a120bf28fc9384a0a27d5adf77d35c611e5de2cb
+    └── UTC--2018-10-30T11-09-00.434477526Z--b6503f84136a5534f3e75d56fd6c7890c3523604
+
+4 directories, 22 files
+ 
+
+jinseok@ubuntu:~$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /home/jinseok/data_testnet console 2>> /home/jinseok/data_testnet/geth.log
+Welcome to the Geth JavaScript console!
+
+instance: Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+coinbase: 0xc9da50c10e4f442aadf42c26864abec6d5cdd344
+at block: 0 (Wed, 31 Dec 1969 16:00:00 PST)
+ datadir: /home/jinseok/data_testnet
+ modules: admin:1.0 debug:1.0 eth:1.0 ethash:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+
+> eth.accounts
+["0xc9da50c10e4f442aadf42c26864abec6d5cdd344", "0xa120bf28fc9384a0a27d5adf77d35c611e5de2cb", "0xb6503f84136a5534f3e75d56fd6c7890c3523604"]
+> eth.coinbase // 채굴 성공시 보상 받는 계정
+"0xc9da50c10e4f442aadf42c26864abec6d5cdd344" 
+> eth.getBalance(eth.accounts[0]) // 0번째 계정의 잔고 확인
+0
+> eth.getBalance(eth.accounts[1])
+0
+> eth.getBalance(eth.accounts[2])
+0
+> eth.blockNumber // 생성된 블록 개수
+0
+> miner.setEtherbase(eth.accounts[1]) // eherbase를 1번 계정으로 전환
+true
+> miner.start(1) // 스레드를 한개 사용하여 채굴 시작
+null
+
+jinseok@ubuntu:~$ tail -100f ~/data_testnet/geth.log // 채굴 log 정보 확인
+INFO [10-30|03:43:06.168] Maximum peer count                       ETH=0 LES=0 total=0
+INFO [10-30|03:43:06.170] Starting peer-to-peer node               instance=Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+INFO [10-30|03:43:06.171] Allocated cache and file handles         database=/home/jinseok/data_testnet/geth/chaindata cache=768 handles=512
+INFO [10-30|03:43:06.189] Initialised chain configuration          config="{ChainID: 4649 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: <nil> EIP155: 0 EIP158: 0 Byzantium: <nil> Constantinople: <nil> Engine: unknown}"
+INFO [10-30|03:43:06.189] Disk storage enabled for ethash caches   dir=/home/jinseok/data_testnet/geth/ethash count=3
+INFO [10-30|03:43:06.189] Disk storage enabled for ethash DAGs     dir=/home/jinseok/.ethash                  count=2
+INFO [10-30|03:43:06.189] Initialising Ethereum protocol           versions="[63 62]" network=4649
+INFO [10-30|03:43:06.190] Loaded most recent local header          number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:43:06.190] Loaded most recent local full block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:43:06.190] Loaded most recent local fast block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:43:06.190] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [10-30|03:43:06.190] Starting P2P networking 
+INFO [10-30|03:43:06.194] IPC endpoint opened                      url=/home/jinseok/data_testnet/geth.ipc
+INFO [10-30|03:43:08.294] RLPx listener up                         self="enode://09d43a288e14b0ca918c05d1ee53158003c7939abe95552868b6dc588cd86e57a780d180e3d3014dc3adeaacb6300798d2b55200de23ab0dea176f49de98e2f4@127.0.0.1:30303?discport=0"
+INFO [10-30|03:44:11.826] IPC endpoint closed                      endpoint=/home/jinseok/data_testnet/geth.ipc
+INFO [10-30|03:44:11.826] Blockchain manager stopped 
+INFO [10-30|03:44:11.827] Stopping Ethereum protocol 
+INFO [10-30|03:44:11.827] Ethereum protocol stopped 
+INFO [10-30|03:44:11.827] Transaction pool stopped 
+INFO [10-30|03:44:11.827] Database closed                          database=/home/jinseok/data_testnet/geth/chaindata
+INFO [10-30|03:54:00.087] Maximum peer count                       ETH=0 LES=0 total=0
+INFO [10-30|03:54:00.088] Starting peer-to-peer node               instance=Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+INFO [10-30|03:54:00.088] Allocated cache and file handles         database=/home/jinseok/data_testnet/geth/chaindata cache=768 handles=512
+INFO [10-30|03:54:00.117] Initialised chain configuration          config="{ChainID: 4649 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: <nil> EIP155: 0 EIP158: 0 Byzantium: <nil> Constantinople: <nil> Engine: unknown}"
+INFO [10-30|03:54:00.118] Disk storage enabled for ethash caches   dir=/home/jinseok/data_testnet/geth/ethash count=3
+INFO [10-30|03:54:00.118] Disk storage enabled for ethash DAGs     dir=/home/jinseok/.ethash                  count=2
+INFO [10-30|03:54:00.118] Initialising Ethereum protocol           versions="[63 62]" network=4649
+INFO [10-30|03:54:00.118] Loaded most recent local header          number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:54:00.118] Loaded most recent local full block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:54:00.118] Loaded most recent local fast block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|03:54:00.118] Loaded local transaction journal         transactions=0 dropped=0
+INFO [10-30|03:54:00.118] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [10-30|03:54:00.118] Starting P2P networking 
+INFO [10-30|03:54:00.120] IPC endpoint opened                      url=/home/jinseok/data_testnet/geth.ipc
+INFO [10-30|03:54:02.223] RLPx listener up                         self="enode://09d43a288e14b0ca918c05d1ee53158003c7939abe95552868b6dc588cd86e57a780d180e3d3014dc3adeaacb6300798d2b55200de23ab0dea176f49de98e2f4@127.0.0.1:30303?discport=0"
+INFO [10-30|04:01:19.980] IPC endpoint closed                      endpoint=/home/jinseok/data_testnet/geth.ipc
+INFO [10-30|04:01:19.980] Blockchain manager stopped 
+INFO [10-30|04:01:19.980] Stopping Ethereum protocol 
+INFO [10-30|04:01:19.980] Ethereum protocol stopped 
+INFO [10-30|04:01:19.980] Transaction pool stopped 
+INFO [10-30|04:01:19.980] Database closed                          database=/home/jinseok/data_testnet/geth/chaindata
+INFO [10-30|04:14:04.588] Maximum peer count                       ETH=0 LES=0 total=0
+INFO [10-30|04:14:04.589] Starting peer-to-peer node               instance=Geth/v1.8.17-stable-8bbe7207/linux-amd64/go1.10.1
+INFO [10-30|04:14:04.589] Allocated cache and file handles         database=/home/jinseok/data_testnet/geth/chaindata cache=768 handles=512
+INFO [10-30|04:14:04.607] Initialised chain configuration          config="{ChainID: 4649 Homestead: 0 DAO: <nil> DAOSupport: false EIP150: <nil> EIP155: 0 EIP158: 0 Byzantium: <nil> Constantinople: <nil> Engine: unknown}"
+INFO [10-30|04:14:04.607] Disk storage enabled for ethash caches   dir=/home/jinseok/data_testnet/geth/ethash count=3
+INFO [10-30|04:14:04.607] Disk storage enabled for ethash DAGs     dir=/home/jinseok/.ethash                  count=2
+INFO [10-30|04:14:04.607] Initialising Ethereum protocol           versions="[63 62]" network=4649
+INFO [10-30|04:14:04.608] Loaded most recent local header          number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|04:14:04.608] Loaded most recent local full block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|04:14:04.608] Loaded most recent local fast block      number=0 hash=5e1fc7…d790e0 td=131072 age=49y6mo2w
+INFO [10-30|04:14:04.608] Loaded local transaction journal         transactions=0 dropped=0
+INFO [10-30|04:14:04.608] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [10-30|04:14:04.608] Starting P2P networking 
+INFO [10-30|04:14:04.610] IPC endpoint opened                      url=/home/jinseok/data_testnet/geth.ipc
+INFO [10-30|04:14:04.701] Etherbase automatically configured       address=0xc9dA50C10e4f442aAdf42c26864Abec6D5CDd344
+INFO [10-30|04:14:06.710] RLPx listener up                         self="enode://09d43a288e14b0ca918c05d1ee53158003c7939abe95552868b6dc588cd86e57a780d180e3d3014dc3adeaacb6300798d2b55200de23ab0dea176f49de98e2f4@127.0.0.1:30303?discport=0"
+INFO [10-30|04:18:45.845] Updated mining threads                   threads=1
+INFO [10-30|04:18:45.845] Transaction pool price threshold updated price=1000000000
+INFO [10-30|04:18:45.845] Commit new mining work                   number=1 sealhash=b3657a…02b9fa uncles=0 txs=0 gas=0 fees=0 elapsed=164.813µs
+INFO [10-30|04:18:49.606] Generating DAG in progress               epoch=0 percentage=0 elapsed=3.018s
+INFO [10-30|04:18:52.743] Generating DAG in progress               epoch=0 percentage=1 elapsed=6.155s
+INFO [10-30|04:18:55.236] Generating DAG in progress               epoch=0 percentage=2 elapsed=8.648s
+INFO [10-30|04:18:57.995] Generating DAG in progress               epoch=0 percentage=3 elapsed=11.407s
+INFO [10-30|04:19:00.763] Generating DAG in progress               epoch=0 percentage=4 elapsed=14.175s
+INFO [10-30|04:19:03.228] Generating DAG in progress               epoch=0 percentage=5 elapsed=16.640s
+INFO [10-30|04:19:06.249] Generating DAG in progress               epoch=0 percentage=6 elapsed=19.661s
+INFO [10-30|04:19:08.882] Generating DAG in progress               epoch=0 percentage=7 elapsed=22.294s
+INFO [10-30|04:19:11.904] Generating DAG in progress               epoch=0 percentage=8 elapsed=25.316s
+INFO [10-30|04:19:15.772] Generating DAG in progress               epoch=0 percentage=9 elapsed=29.184s
+INFO [10-30|04:19:18.811] Generating DAG in progress               epoch=0 percentage=10 elapsed=32.223s
+INFO [10-30|04:19:21.869] Generating DAG in progress               epoch=0 percentage=11 elapsed=35.281s
+INFO [10-30|04:19:24.421] Generating DAG in progress               epoch=0 percentage=12 elapsed=37.832s
+INFO [10-30|04:19:27.035] Generating DAG in progress               epoch=0 percentage=13 elapsed=40.447s
+INFO [10-30|04:19:29.622] Generating DAG in progress               epoch=0 percentage=14 elapsed=43.034s
+INFO [10-30|04:19:33.387] Generating DAG in progress               epoch=0 percentage=15 elapsed=46.799s
+INFO [10-30|04:19:35.877] Generating DAG in progress               epoch=0 percentage=16 elapsed=49.289s
+INFO [10-30|04:19:38.469] Generating DAG in progress               epoch=0 percentage=17 elapsed=51.881s
+INFO [10-30|04:19:41.101] Generating DAG in progress               epoch=0 percentage=18 elapsed=54.513s
+INFO [10-30|04:19:43.744] Generating DAG in progress               epoch=0 percentage=19 elapsed=57.155s
+INFO [10-30|04:19:46.598] Generating DAG in progress               epoch=0 percentage=20 elapsed=1m0.010s
+INFO [10-30|04:19:49.517] Generating DAG in progress               epoch=0 percentage=21 elapsed=1m2.929s
+INFO [10-30|04:19:52.835] Generating DAG in progress               epoch=0 percentage=22 elapsed=1m6.247s
+INFO [10-30|04:19:55.428] Generating DAG in progress               epoch=0 percentage=23 elapsed=1m8.840s
+INFO [10-30|04:19:58.330] Generating DAG in progress               epoch=0 percentage=24 elapsed=1m11.742s
+INFO [10-30|04:20:01.284] Generating DAG in progress               epoch=0 percentage=25 elapsed=1m14.696s
+INFO [10-30|04:20:04.673] Generating DAG in progress               epoch=0 percentage=26 elapsed=1m18.085s
+INFO [10-30|04:20:07.393] Generating DAG in progress               epoch=0 percentage=27 elapsed=1m20.805s
+INFO [10-30|04:20:09.995] Generating DAG in progress               epoch=0 percentage=28 elapsed=1m23.407s
+INFO [10-30|04:20:12.529] Generating DAG in progress               epoch=0 percentage=29 elapsed=1m25.941s
+INFO [10-30|04:20:15.082] Generating DAG in progress               epoch=0 percentage=30 elapsed=1m28.494s
+INFO [10-30|04:20:17.674] Generating DAG in progress               epoch=0 percentage=31 elapsed=1m31.086s
+INFO [10-30|04:20:20.641] Generating DAG in progress               epoch=0 percentage=32 elapsed=1m34.053s
+INFO [10-30|04:20:23.925] Generating DAG in progress               epoch=0 percentage=33 elapsed=1m37.337s
+INFO [10-30|04:20:26.708] Generating DAG in progress               epoch=0 percentage=34 elapsed=1m40.120s
+INFO [10-30|04:20:29.180] Generating DAG in progress               epoch=0 percentage=35 elapsed=1m42.592s
+INFO [10-30|04:20:31.696] Generating DAG in progress               epoch=0 percentage=36 elapsed=1m45.108s
+INFO [10-30|04:20:34.330] Generating DAG in progress               epoch=0 percentage=37 elapsed=1m47.742s
+INFO [10-30|04:20:37.878] Generating DAG in progress               epoch=0 percentage=38 elapsed=1m51.290s
+INFO [10-30|04:20:41.126] Generating DAG in progress               epoch=0 percentage=39 elapsed=1m54.538s
+INFO [10-30|04:20:43.682] Generating DAG in progress               epoch=0 percentage=40 elapsed=1m57.094s
+INFO [10-30|04:20:46.263] Generating DAG in progress               epoch=0 percentage=41 elapsed=1m59.675s
+INFO [10-30|04:20:48.789] Generating DAG in progress               epoch=0 percentage=42 elapsed=2m2.200s
+INFO [10-30|04:20:51.384] Generating DAG in progress               epoch=0 percentage=43 elapsed=2m4.796s
+INFO [10-30|04:20:54.507] Generating DAG in progress               epoch=0 percentage=44 elapsed=2m7.919s
+INFO [10-30|04:20:57.135] Generating DAG in progress               epoch=0 percentage=45 elapsed=2m10.547s
+INFO [10-30|04:20:59.730] Generating DAG in progress               epoch=0 percentage=46 elapsed=2m13.141s
+INFO [10-30|04:21:02.776] Generating DAG in progress               epoch=0 percentage=47 elapsed=2m16.188s
+INFO [10-30|04:21:05.400] Generating DAG in progress               epoch=0 percentage=48 elapsed=2m18.812s
+INFO [10-30|04:21:08.283] Generating DAG in progress               epoch=0 percentage=49 elapsed=2m21.695s
+INFO [10-30|04:21:11.604] Generating DAG in progress               epoch=0 percentage=50 elapsed=2m25.015s
+INFO [10-30|04:21:14.805] Generating DAG in progress               epoch=0 percentage=51 elapsed=2m28.217s
+INFO [10-30|04:21:18.613] Generating DAG in progress               epoch=0 percentage=52 elapsed=2m32.025s
+INFO [10-30|04:21:21.353] Generating DAG in progress               epoch=0 percentage=53 elapsed=2m34.765s
+INFO [10-30|04:21:24.670] Generating DAG in progress               epoch=0 percentage=54 elapsed=2m38.082s
+INFO [10-30|04:21:28.314] Generating DAG in progress               epoch=0 percentage=55 elapsed=2m41.726s
+INFO [10-30|04:21:32.170] Generating DAG in progress               epoch=0 percentage=56 elapsed=2m45.582s
+INFO [10-30|04:21:35.368] Generating DAG in progress               epoch=0 percentage=57 elapsed=2m48.780s 
+
+
+jinseok@ubuntu:~$ tree .ethash/ // DAG 파일 명 확인
+.ethash/
+└── full-R23-0000000000000000.5577006791947779410
+
+0 directories, 1 file 
+
+
+> eth.mining // 현재 채굴 여부 확인
+true
+> eth.hashrate // 채굴 속도(해시 연산 속도) - 블록 생성이 완료되어서 일시적으로 채굴 속도가 0인것으로 추정. 항상 채굴 속도는 1이상이어야함
+0
+> eth.hashrate // 채굴 속도
+9163
+> eth.hashrate
+10526
+> eth.blockNumber // 생성된 블록 개수
+5
+> miner.stop() // 채굴 종료
+null
+> eth.mining // 현재 채굴 여부 확인
+false
+> eth.hashrate // 채굴이 종료되었기 때문에 0이 나와야하지만 계속 채굴이 진행됨. 결국 exit 로 강제 종료
+12519
+> eth.hashrate
+11518
+> eth.blockNumber
+13
+> eth.getBalance(eth.coinbase) // 채굴 보상
+65000000000000000000
+> eth.getBalance(eth.accounts[1]) // 1번 계정에 존재하는 채굴 보상
+65000000000000000000
+> web3.fromWei(eth.getBalance(eth.accounts[1]), "ether") // 채굴 보상의 단위는 wei 이므로 ether 단위로 표시. 1 ether = 10^18 wei
+65
