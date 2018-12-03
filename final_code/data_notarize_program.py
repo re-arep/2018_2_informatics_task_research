@@ -60,29 +60,38 @@ print("GasUsed : ",tx_receipt.cumulativeGasUsed)
 contract_instance = w3.eth.contract(address=tx_receipt.contractAddress,
                           abi=contract_interface['abi'])
 
-a = format(contract_instance.functions.Time_call().call())
-indata = input("input your data type : ")
-if indata == "text":
-    data3 = str(input("input your text data : "))
-    b = Chdata.text(data3)
-elif indata == "image":
-    data3 = str(input("input your image data path: "))
-    b = Chdata.image(data3)
-elif indata == "video":
-    data3 = str(input("input your video data path: "))
-    b = Chdata.video(data3)
-else :
-    print("we not apply that type")
-    b = 'dummy'
+NumBer = 0
 
-print('Applying...')
-tx_hash = contract_instance.functions.setValue(a,b).transact()
-tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-print("GasUsed : ",tx_receipt.cumulativeGasUsed)
-# Wait for transaction to be mined...
-w3.eth.waitForTransactionReceipt(tx_hash)
+while True:
+    numb = str(input("Do you want to more?(yes or no) : "))
+    if numb == 'no':
+        break
+    a = format(contract_instance.functions.Time_call().call())
+    indata = input("input your data type(text, image, video, audio) : ")
+    if indata == "text":
+        data3 = str(input("input your text data path: "))
+        b = Chdata.text(data3)
+    elif indata == "image":
+        data3 = str(input("input your image data path: "))
+        b = Chdata.image(data3)
+    elif indata == "video":
+        data3 = str(input("input your video data path: "))
+        b = Chdata.video(data3)
+    elif indata == "audio":
+        data3 = str(input("input your audio data path: "))
+        b = Chdata.audio(data3)
+    else :
+        print("we not apply that type")
+        b = 'dummy'
 
-# Display the new greeting value
-print('Contract Value time : {}'.format(contract_instance.functions.getValue1(0).call()))
-print('Contract Value : {}'.format(contract_instance.functions.getValue2(0).call()))
+    print('Applying...')
+    tx_hash = contract_instance.functions.setValue(a,b).transact()
+    tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    print("GasUsed : ",tx_receipt.cumulativeGasUsed)
+    # Wait for transaction to be mined...
+    w3.eth.waitForTransactionReceipt(tx_hash)
 
+    # Display the new greeting value
+    print('Contract Value time : {}'.format(contract_instance.functions.getValue1(NumBer).call()))
+    print('Contract Value : {}'.format(contract_instance.functions.getValue2(NumBer).call()))
+    NumBer += 1
